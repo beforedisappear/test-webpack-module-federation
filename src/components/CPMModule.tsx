@@ -4,14 +4,9 @@ import "./CPMModule.css";
 // Ленивая загрузка remote модуля
 const RemoteCPM = lazy(() => import("cpm/CPMApp"));
 
-const CPMModule: React.FC = () => {
+const CPMModule: React.FC<{ showAlert: () => void }> = ({ showAlert }) => {
   return (
     <div className="cpm-module">
-      <div className="cpm-header">
-        <h1>CPM модуль</h1>
-        <p>Удаленное приложение, загружаемое через Module Federation</p>
-      </div>
-
       <div className="cpm-content">
         <Suspense
           fallback={
@@ -22,7 +17,7 @@ const CPMModule: React.FC = () => {
           }
         >
           <div className="remote-module-wrapper">
-            <RemoteCPM />
+            <RemoteCPM showAlert={showAlert} />
           </div>
         </Suspense>
       </div>

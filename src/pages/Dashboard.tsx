@@ -1,13 +1,17 @@
 import React from "react";
 import "./Dashboard.css";
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC<{ showAlert: () => void }> = ({ showAlert }) => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
         <h1>Главная панель</h1>
         <p>Добро пожаловать в основное приложение Shell</p>
       </div>
+
+      <button className="dashboard-button" onClick={showAlert}>
+        Show Alert
+      </button>
 
       <div className="dashboard-grid">
         <div className="dashboard-card">

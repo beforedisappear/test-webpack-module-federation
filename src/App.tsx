@@ -19,15 +19,22 @@ const AppRoutes: React.FC = () => {
     return <LoginForm />;
   }
 
+  const showAlert = () => {
+    alert("ALERT FROM SHELL APP");
+  };
+
   console.log("ENABLE_CPM", process.env.ENABLE_CPM);
 
   return (
     <Layout>
       <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={<Dashboard showAlert={showAlert} />}
+        />
         <Route path="/analytics" element={<Analytics />} />
         {process.env.ENABLE_CPM && (
-          <Route path="/cpm" element={<CPMModule />} />
+          <Route path="/cpm/*" element={<CPMModule showAlert={showAlert} />} />
         )}
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />

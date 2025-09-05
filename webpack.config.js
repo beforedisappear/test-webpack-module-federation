@@ -8,6 +8,9 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
   },
+  output: {
+    publicPath: "http://localhost:3000/",
+  },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js"],
   },
@@ -42,7 +45,7 @@ module.exports = {
         },
         "react-router-dom": {
           singleton: true,
-          requiredVersion: "^6.8.0",
+          requiredVersion: "6.8.0",
           eager: true,
         },
       },
