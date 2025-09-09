@@ -11,9 +11,10 @@ import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
 import NotFoundPage from "./pages/NotFoundPage";
 import { useCpmRoutes } from "./hooks/useCpmRoutes";
+import { module } from "./hooks/useCpmRoutes";
 
 const CPMModuleLayout = lazy(() =>
-  import("cpm/CPMApp").then((module) => ({ default: module.CPMAppLayout }))
+  module.then((module) => ({ default: module.CPMAppLayout }))
 );
 
 const AppRoutes: React.FC = () => {
@@ -30,7 +31,7 @@ const AppRoutes: React.FC = () => {
       path: "/",
       element: <Layout />,
       loader: async () => {
-        await import("cpm/CPMApp");
+        await module;
         return null;
       },
       children: [
