@@ -1,2 +1,2 @@
 // Export CPMApp for Module Federation
-export { default } from "./CPMApp";
+export { CPMAppLayout, cpmAppRoutes } from "./CPMApp";

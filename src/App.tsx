@@ -1,20 +1,35 @@
-import React from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  RouteObject,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Layout from "./components/Layout";
 import LoginForm from "./components/LoginForm";
 import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
-import CPMModule from "./components/CPMModule";
+import { useCpmRoutes } from "./hooks/useCpmRoutes";
 import NotFoundPage from "./pages/NotFoundPage";
+
+const CPMModuleLayout = lazy(() =>
+  import("cpm/CPMApp").then((module) => ({ default: module.CPMAppLayout }))
+);
+
+const CPMModuleLayoutWithSuspense = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CPMModuleLayout />
+    </Suspense>
+  );
+};
 
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
+
+  const routes = useCpmRoutes();
 
   if (!isAuthenticated) {
     return <LoginForm />;
@@ -23,8 +38,6 @@ const AppRoutes: React.FC = () => {
   const showAlert = () => {
     alert("ALERT FROM SHELL APP");
   };
-
-  console.log("ENABLE_CPM", process.env.ENABLE_CPM);
 
   return (
     <Layout>
@@ -35,16 +48,14 @@ const AppRoutes: React.FC = () => {
         />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route
-          path="*"
-          element={
-            process.env.ENABLE_CPM ? (
-              <CPMModule showAlert={showAlert} />
-            ) : (
-              <NotFoundPage />
-            )
-          }
-        />
+
+        <Route element={<CPMModuleLayoutWithSuspense />}>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Route>
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
   );

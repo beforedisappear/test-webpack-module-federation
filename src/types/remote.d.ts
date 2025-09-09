@@ -1,4 +1,5 @@
 declare module "cpm/CPMApp" {
-  const CPMApp: React.ComponentType<{ showAlert: () => void }>;
-  export default CPMApp;
+  const CPMAppLayout: React.ComponentType;
+  const cpmAppRoutes: RouteObject[];
+  export { CPMAppLayout, cpmAppRoutes };
 }
