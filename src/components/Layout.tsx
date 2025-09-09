@@ -42,10 +42,37 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           {process.env.ENABLE_CPM && (
             <Link
-              to="/cpm"
-              className={`nav-link ${isActive("/cpm") ? "active" : ""}`}
+              to="/dashboard2"
+              className={`nav-link ${isActive("/dashboard2") ? "active" : ""}`}
             >
-              CPM модуль
+              CPM dashboard
+            </Link>
+          )}
+
+          {process.env.ENABLE_CPM && (
+            <Link
+              to="/settings"
+              className={`nav-link ${isActive("/settings") ? "active" : ""}`}
+            >
+              CPM settings
+            </Link>
+          )}
+
+          {process.env.ENABLE_CPM && (
+            <Link
+              to="/campaigns"
+              className={`nav-link ${isActive("/campaigns") ? "active" : ""}`}
+            >
+              CPM campaigns
+            </Link>
+          )}
+
+          {process.env.ENABLE_CPM && (
+            <Link
+              to="/analytics2"
+              className={`nav-link ${isActive("/analytics2") ? "active" : ""}`}
+            >
+              CPM analytics
             </Link>
           )}
         </div>

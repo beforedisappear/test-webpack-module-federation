@@ -11,6 +11,7 @@ import LoginForm from "./components/LoginForm";
 import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
 import CPMModule from "./components/CPMModule";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const AppRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -33,11 +34,17 @@ const AppRoutes: React.FC = () => {
           element={<Dashboard showAlert={showAlert} />}
         />
         <Route path="/analytics" element={<Analytics />} />
-        {process.env.ENABLE_CPM && (
-          <Route path="/cpm/*" element={<CPMModule showAlert={showAlert} />} />
-        )}
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route
+          path="*"
+          element={
+            process.env.ENABLE_CPM ? (
+              <CPMModule showAlert={showAlert} />
+            ) : (
+              <NotFoundPage />
+            )
+          }
+        />
       </Routes>
     </Layout>
   );
