@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Settings.css";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Settings: React.FC = () => {
   const [settings, setSettings] = useState({
@@ -71,6 +72,8 @@ const Settings: React.FC = () => {
         <h1>Настройки CPM</h1>
         <p>Управление параметрами системы и уведомлениями</p>
       </div>
+
+      <ThemeToggle />
 
       <div className="settings-content">
         <div className="settings-section">
